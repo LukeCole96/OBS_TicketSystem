@@ -1,9 +1,7 @@
 package users
 
 import java.io.{File, PrintWriter}
-
 import users.userutils.UserImpl
-
 import scala.io.Source
 
 class User(val firstName: String, val secondName: String, val address: String) extends UserImpl {
