@@ -1,4 +1,4 @@
-package users.UserUtils
+package users.userutils
 
 trait UserImpl {
   val firstName: String

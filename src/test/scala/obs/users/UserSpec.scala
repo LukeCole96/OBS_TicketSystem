@@ -2,6 +2,8 @@ package users
 
 import org.scalatest._
 
+import scala.io.Source
+
 class UserSpec extends FeatureSpec with Matchers with BeforeAndAfter with GivenWhenThen {
 
   feature("Create a new user") {
@@ -31,6 +33,22 @@ class UserSpec extends FeatureSpec with Matchers with BeforeAndAfter with GivenW
       customer.firstName shouldBe "testCustomer"
       customer.secondName shouldBe "testCustomer"
       customer.address shouldBe "testRoad"
+    }
+
+    scenario("A user is created") {
+      When("a user is instantiation")
+      val user = new User("test", "test", "testRoad")
+      Then("Write user details to file")
+
+      user.createLogin(user)
+      val fileResult = Source.fromFile("src/main/scala/obs/users/userutils/existingusers/details.conf").getLines.toArray
+      fileResult should contain("test test")
+
+      And("authentication should be enabled")
+      user.authenticateLogin(user) shouldBe true
+
+      And("A user doesn't exist, but tries to login")
+      user.authenticateLogin(new User("no", "existing", "user")) shouldBe false
     }
   }
 }
