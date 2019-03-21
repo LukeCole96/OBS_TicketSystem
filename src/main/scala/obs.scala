@@ -1,0 +1,3 @@
+object obs extends App {
+
+}
